@@ -1,4 +1,4 @@
 vimdic
 ======
 
-Dictionary for vim user
+Dictionary for vim linux user
