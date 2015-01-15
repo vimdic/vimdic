@@ -1,6 +1,6 @@
 #!/bin/bash
 SET_DIR=~/utility/scripts/vimdic
-apt-get install w3m
+sudo apt-get install w3m
 mkdir -p $SET_DIR
 cp setup.sh vimdic.sh $SET_DIR
 chmod 775 $SET_DIR/vimdic.sh
