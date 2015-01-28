@@ -1,5 +1,4 @@
 #!/bin/bash
 export LANG=ko_KR.UTF-8
 clear
-echo $1
-w3m -dump -no-cookie "http://small.dic.daum.net/search.do?q=$1" | grep -A1 "듣기반복듣기" | sed -n "2p"
+w3m -dump -no-cookie "http://small.dic.daum.net/search.do?q=$1 $2 $3" | sed -n -e "/영어 사전/,/영어 사전 더보기/p" | sed -e "/^영어 사전/d" | sed -e "/^\[/d"
