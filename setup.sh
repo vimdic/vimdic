@@ -8,7 +8,7 @@ if [ $IS_FRST_SET == 0 ]; then
 	# Set locale to ko_KR.UTF-8
 	if [ $IS_LOCALE_SET != 0 ]; then
 		sudo locale-gen ko_KR.UTF-8
-		sudo dpkg -reconfigure locales
+		sudo dpkg-reconfigure locales
 		if [ $(locale -a | grep -c ko_KR.utf8) == 0 ]; then
 			echo "Fail to setup locale"
 		else
