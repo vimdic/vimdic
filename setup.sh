@@ -2,6 +2,7 @@
 SET_DIR=~/utility/scripts/vimdic
 IS_FRST_SET=$(grep -c vimdic ~/.bashrc)
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
+chmod 775 $SET_DIR/vimdic.sh
 if [ $IS_FRST_SET == 0 ]; then
 	echo "Setting vimdic.."
 
@@ -21,7 +22,6 @@ if [ $IS_FRST_SET == 0 ]; then
 	sudo apt-get install w3m
 	mkdir -p $SET_DIR
 	cp setup.sh vimdic.sh $SET_DIR
-	chmod 775 $SET_DIR/vimdic.sh
 	echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
 	echo "xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>\"<CR>">> ~/.vimrc
 	echo "export PATH=$PATH:$SET_DIR">> ~/.bashrc
