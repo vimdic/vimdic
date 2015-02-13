@@ -1,11 +1,14 @@
 #!/bin/bash
-SET_DIR=~/utility/scripts/vimdic
-IS_FRST_SET=$(grep -c vimdic ~/.bashrc)
+
+SET_DIR=/usr/local/bin
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
 IS_CLIPBOARD_SET=$(vim --version | grep -c [+]clipboard)
+VD=vimdic.sh
 
-chmod 775 $SET_DIR/vimdic.sh
-if [ $IS_FRST_SET == 0 ]; then
+chmod 775 $VD
+if [ -f $SET_DIR/$VD ]; then
+	echo "Vimdic already set"
+else
 	echo "Setting vimdic.."
 
 	# Set locale to ko_KR.UTF-8
@@ -33,12 +36,8 @@ if [ $IS_FRST_SET == 0 ]; then
 	fi
 
 	sudo apt-get install w3m
-	mkdir -p $SET_DIR
-	cp setup.sh vimdic.sh $SET_DIR
+	sudo cp $VD $SET_DIR
 	echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
 	echo "xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>\"<CR>">> ~/.vimrc
-	echo "export PATH=$PATH:$SET_DIR">> ~/.bashrc
 	source ~/.bashrc
-else
-	echo "Vimdic already set"
 fi
