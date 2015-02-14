@@ -13,6 +13,7 @@ else
 
 	# Set locale to ko_KR.UTF-8
 	if [ $IS_LOCALE_SET == 0 ]; then
+		echo "Starting locale setting"
 		sudo locale-gen ko_KR.UTF-8
 		sudo dpkg-reconfigure locales
 		if [ $(locale -a | grep -c ko_KR.utf8) == 0 ]; then
@@ -25,6 +26,7 @@ else
 	fi
 
 	if [ $IS_CLIPBOARD_SET == 0 ]; then
+		echo "Starting clipboard setting"
 		sudo apt-get install vim-gnome
 		if [ $IS_CLIPBOARD_SET == 0]; then
 			echo "Fail to setup vim clipboard"
@@ -35,6 +37,7 @@ else
 		echo "Already set vim clipboard"
 	fi
 
+	echo "Installing w3m"
 	sudo apt-get install w3m
 	sudo cp $VD $SET_DIR
 	echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
