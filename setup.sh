@@ -40,11 +40,12 @@ else
 			echo "Already set vim clipboard"
 		fi
 
-		echo "Installing w3m"
-		sudo apt-get install w3m
+		echo "cp $VD to $SET_DIR"
 		sudo cp $VD $SET_DIR
+		echo "Added mapping key 'tt' into ~/.vimrc"
 		echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
 		echo "xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>\"<CR>">> ~/.vimrc
 		source ~/.bashrc
+		echo "Vimdic setup is done."
 	fi
 fi
