@@ -7,7 +7,14 @@ VD=vimdic.sh
 
 chmod 775 $VD
 if [ "$1" == "-rm" ]; then
-	sudo rm $SET_DIR/$VD
+	if [ -f $SET_DIR/$VD ]; then
+		sudo rm $SET_DIR/$VD
+		sed -i "/nmap tt :!vimdic.sh<Space><cword><CR>/d" ~/.vimrc
+		sed -i "/xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>/d" ~/.vimrc
+		echo "Removing vimdic is done.."
+	else
+		echo "Removing vimdic is already done.."
+	fi
 else
 	if [ -f $SET_DIR/$VD ]; then
 		echo "Vimdic already set"
