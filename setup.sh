@@ -40,8 +40,6 @@ else
 			echo "Already set vim clipboard"
 		fi
 
-		echo "Installing w3m"
-		sudo apt-get install w3m
 		sudo cp $VD $SET_DIR
 		echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
 		echo "xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>\"<CR>">> ~/.vimrc
