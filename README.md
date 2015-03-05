@@ -2,6 +2,7 @@ vimdic
 ======
 
 Dictionary for vim linux user
+Using shortcut 'tt' which means 'translate that' to translate the word on the cursor or phrase of visual block.
 
 ####HISTORY
 - 150218	
