@@ -12,7 +12,7 @@ if [ "$1" == "-rm" ]; then
 		sudo rm $SET_DIR/$VD
 		sed -i "/nmap tt :!vimdic.sh<Space><cword><CR>/d" ~/.vimrc
 		sed -i "/xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>/d" ~/.vimrc
-		rm DUMP_DIR
+		rm $DUMP_DIR
 		echo "Removing vimdic is done.."
 	else
 		echo "Removing vimdic is already done.."
