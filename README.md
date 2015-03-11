@@ -7,10 +7,9 @@ Using shortcut 'tt' which means 'translate that' to translate the word on the cu
 
 
 ####HISTORY
-- 150311
-	'-w [웹페이지주소]' 옵션 추가
-	Opening the web page with vim.
-	And just using shortcut 'tt' to read long text like article more easily.
+- 150311	
+	'-w [웹페이지주소]' 옵션 추가		
+	Opening the web page with vim. And just using shortcut 'tt' to read long text like article more easily.	
 - 150218	
 	Using wget instead of w3m which set by defalut for parsing text of meaning from dictionary.	
 	In -rm mode, Removing tt keymap from vimrc file	
