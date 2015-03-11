@@ -4,6 +4,7 @@ SET_DIR=/usr/local/bin
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
 IS_CLIPBOARD_SET=$(vim --version | grep -c [+]clipboard)
 VD=vimdic.sh
+DUMP_DIR=~/.dump_vimdic
 
 chmod 775 $VD
 if [ "$1" == "-rm" ]; then
@@ -11,6 +12,7 @@ if [ "$1" == "-rm" ]; then
 		sudo rm $SET_DIR/$VD
 		sed -i "/nmap tt :!vimdic.sh<Space><cword><CR>/d" ~/.vimrc
 		sed -i "/xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>/d" ~/.vimrc
+		rm DUMP_DIR
 		echo "Removing vimdic is done.."
 	else
 		echo "Removing vimdic is already done.."
@@ -46,6 +48,9 @@ else
 		else
 			echo "Already set vim clipboard"
 		fi
+
+		echo "Installing w3m to open web page"
+		sudo apt-get install w3m
 
 		echo "cp $VD to $SET_DIR"
 		sudo cp $VD $SET_DIR
