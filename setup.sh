@@ -2,7 +2,6 @@
 
 SET_DIR=/usr/local/bin
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
-IS_CLIPBOARD_SET=$(vim --version | grep -c [+]clipboard)
 VD=vimdic.sh
 DUMP_DIR=~/.dump_vimdic
 
@@ -35,18 +34,6 @@ else
 			fi
 		else
 			echo "Already set locale"
-		fi
-
-		if [ $IS_CLIPBOARD_SET == 0 ]; then
-			echo "Starting clipboard setting"
-			sudo apt-get install vim-gnome
-			if [ $IS_CLIPBOARD_SET == 0]; then
-				echo "Fail to setup vim clipboard"
-			else
-				echo "Success to setup vim clipboard"
-			fi
-		else
-			echo "Already set vim clipboard"
 		fi
 
 		echo "Installing w3m to open web page"
