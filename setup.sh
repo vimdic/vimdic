@@ -2,7 +2,6 @@
 
 SET_DIR=/usr/local/bin
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
-IS_CLIPBOARD_SET=$(vim --version | grep -c [+]clipboard)
 VD=vimdic.sh
 DUMP_DIR=~/.dump_vimdic
 
@@ -10,8 +9,8 @@ chmod 775 $VD
 if [ "$1" == "-rm" ]; then
 	if [ -f $SET_DIR/$VD ]; then
 		sudo rm $SET_DIR/$VD
-		sed -i "/nmap tt :!vimdic.sh<Space><cword><CR>/d" ~/.vimrc
-		sed -i "/xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>/d" ~/.vimrc
+		sed -i "/^nmap tt/d" ~/.vimrc
+		sed -i "/^xmap tt/d" ~/.vimrc
 		rm $DUMP_DIR
 		echo "Removing vimdic is done.."
 	else
@@ -37,18 +36,6 @@ else
 			echo "Already set locale"
 		fi
 
-		if [ $IS_CLIPBOARD_SET == 0 ]; then
-			echo "Starting clipboard setting"
-			sudo apt-get install vim-gnome
-			if [ $IS_CLIPBOARD_SET == 0]; then
-				echo "Fail to setup vim clipboard"
-			else
-				echo "Success to setup vim clipboard"
-			fi
-		else
-			echo "Already set vim clipboard"
-		fi
-
 		echo "Installing w3m to open web page"
 		sudo apt-get install w3m
 
@@ -56,7 +43,7 @@ else
 		sudo cp $VD $SET_DIR
 		echo "Added mapping key 'tt' into ~/.vimrc"
 		echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
-		echo "xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>\"<CR>">> ~/.vimrc
+		echo "xmap tt y<ESC>:!vimdic.sh<Space><C-R>\"<CR>">> ~/.vimrc
 		source ~/.bashrc
 		echo "Vimdic setup is done."
 	fi
