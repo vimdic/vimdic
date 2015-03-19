@@ -10,8 +10,8 @@ chmod 775 $VD
 if [ "$1" == "-rm" ]; then
 	if [ -f $SET_DIR/$VD ]; then
 		sudo rm $SET_DIR/$VD
-		sed -i "/nmap tt :!vimdic.sh<Space><cword><CR>/d" ~/.vimrc
-		sed -i "/xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>/d" ~/.vimrc
+		sed -i "/^nmap tt/d" ~/.vimrc
+		sed -i "/^xmap tt/d" ~/.vimrc
 		rm $DUMP_DIR
 		echo "Removing vimdic is done.."
 	else
@@ -56,7 +56,7 @@ else
 		sudo cp $VD $SET_DIR
 		echo "Added mapping key 'tt' into ~/.vimrc"
 		echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
-		echo "xmap tt \"+y<ESC>:!vimdic.sh<Space><C-R><C-O>\"<CR>">> ~/.vimrc
+		echo "xmap tt y<ESC>:!vimdic.sh<Space><C-R>\"<CR>">> ~/.vimrc
 		source ~/.bashrc
 		echo "Vimdic setup is done."
 	fi
