@@ -2,6 +2,7 @@
 
 DUMP_DIR=~/.dump_vimdic
 COLOR_SCH=morning
+TARGET=$@
 
 if [ "$1" == "-w" ]; then
 	echo "Open web page with vim. Just using tt."
@@ -10,7 +11,7 @@ if [ "$1" == "-w" ]; then
 else
 	export LANG=ko_KR.UTF-8
 	clear
-	wget -q -O - "http://small.dic.daum.net/search.do?q=$1 $2 $3" |\
+	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET" |\
 		     sed -n -e "/eng_sch/,/<\/section>/p" |\
 		     grep "link_txt\|txt_means_KUEK\|trans" | sed -e 's/\t//g' |\
 		     # Wrap [] to target word from string like
