@@ -7,9 +7,12 @@ Using shortcut 'tt' which means 'translate that' to translate the word on the cu
 
 
 ####HISTORY
+- 150326	
+	It is possible to input more parameter	
+	Change method of input parameter of vimdic.sh from $1,$2,$3 to $@		
 - 150319	
 	Improve the way copy text to copy phase to clipboard by shorcut 'tt' (<C-R>")	
-	So, It does not needs to install vim-gnome
+	So, It does not needs to install vim-gnome	
 - 150311	
 	'-w [웹페이지주소]' 옵션 추가		
 	Opening the web page with vim. And just using shortcut 'tt' to read long text like article more easily.	
