@@ -7,6 +7,9 @@ Using shortcut 'tt' which means 'translate that' to translate the word on the cu
 
 
 ####HISTORY
+- 150408
+	Display examples of target word and expression
+	User can select if the example will be displayed or not
 - 150326	
 	It is possible to input more parameter	
 	Change method of input parameter of vimdic.sh from $1,$2,$3 to $@		
