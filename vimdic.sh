@@ -13,6 +13,7 @@ else
 	clear
 
 	# Meaning
+	printf "\n[ $TARGET ]\n\n*** 주요뜻 ***\n"
 	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET" |\
 		sed -n -e "/eng_sch/,/<\/section>/p" |\
 		grep "link_txt\|txt_means_KUEK\|trans" | sed -e 's/\t//g' |\
@@ -22,10 +23,23 @@ else
 		sed -e 's/<\/a>/ ]<\/a>/g' |\
 		sed -e 's/<[^>]*>//g'
 
-	# Example
-	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET&t=example&dic=eng" |\
-		grep "<daum:word" | sed -e 's/\t//g' |\
-		sed -e 's/^[^>]*</</g' |\
-		sed -e 's/<[^>]*>//g'
+	echo " 		      +-----------------------------------------+"
+	echo "		      |	종료	 	: Any Key		|"
+	echo "		      |	예문 보기	: Space Bar 또는 Enter	|"
+	echo " 		      +-----------------------------------------+"
+	read -n1 x
+
+	if [ "$x" ]; then
+		echo
+	else
+		# Example
+		printf "\n*** 예문 ***\n"
+		wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET&t=example&dic=eng" |\
+			grep "<daum:word" | sed -e 's/\t//g' |\
+			sed -e 's/^[^>]*</</g' |\
+			sed -e 's/<[^>]*>//g' |\
+			more
+	fi
+
 
 fi
