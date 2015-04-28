@@ -4,13 +4,21 @@ SET_DIR=/usr/local/bin
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
 VD=vimdic.sh
 DUMP_DIR=~/.dump_vimdic
+MAC=Darwin
+LINUX=Linux
+WHICH_SYSTEM=$(uname -s)
 
 chmod 775 $VD
 if [ "$1" == "-rm" ]; then
 	if [ -f $SET_DIR/$VD ]; then
 		sudo rm $SET_DIR/$VD
-		sed -i "/^nmap tt/d" ~/.vimrc
-		sed -i "/^xmap tt/d" ~/.vimrc
+		if [[ $WHICH_SYSTEM == $MAC ]]; then
+			sed -i '' "/^nmap tt/d" ~/.vimrc
+			sed -i '' "/^xmap tt/d" ~/.vimrc
+		elif [[ $WHICH_SYSTEM == $LINUX ]]; then
+			sed -i "/^nmap tt/d" ~/.vimrc
+			sed -i "/^xmap tt/d" ~/.vimrc
+		fi
 		rm $DUMP_DIR
 		echo "Removing vimdic is done.."
 	else
@@ -22,22 +30,27 @@ else
 	else
 		echo "Setting vimdic.."
 
-		# Set locale to ko_KR.UTF-8
-		if [ $IS_LOCALE_SET == 0 ]; then
-			echo "Starting locale setting"
-			sudo locale-gen ko_KR.UTF-8
-			sudo dpkg-reconfigure locales
-			if [ $(locale -a | grep -c ko_KR.utf8) == 0 ]; then
-				echo "Fail to setup locale"
-			else
-				echo "Success to setup locale"
-			fi
-		else
-			echo "Already set locale"
-		fi
+		if [[ $WHICH_SYSTEM == $MAC ]]; then
+			echo "On the Mac OS X"
+		elif [[ $WHICH_SYSTEM == $LINUX ]]; then
 
-		echo "Installing w3m to open web page"
-		sudo apt-get install w3m
+			# Set locale to ko_KR.UTF-8
+			if [ $IS_LOCALE_SET == 0 ]; then
+				echo "Starting locale setting"
+				sudo locale-gen ko_KR.UTF-8
+				sudo dpkg-reconfigure locales
+				if [ $(locale -a | grep -c ko_KR.utf8) == 0 ]; then
+					echo "Fail to setup locale"
+				else
+					echo "Success to setup locale"
+				fi
+			else
+				echo "Already set locale"
+			fi
+
+			echo "Installing w3m to open web page"
+			sudo apt-get install w3m
+		fi
 
 		echo "cp $VD to $SET_DIR"
 		sudo cp $VD $SET_DIR

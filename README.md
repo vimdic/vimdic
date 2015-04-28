@@ -7,6 +7,8 @@ Using shortcut 'tt' which means 'translate that' to translate the word on the cu
 
 
 ####HISTORY
+- 150428	
+	Available installing on the Mac OS X with setup.sh	
 - 150408	
 	Display examples of target word and expression	
 	User can select if the example will be displayed or not	
