@@ -32,6 +32,10 @@ else
 
 		if [[ $WHICH_SYSTEM == $MAC ]]; then
 			echo "On the Mac OS X"
+			echo "Installing Homebrew which is packages manager for OSX like 'apt-get' for debian linux"
+			ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+			echo "Installing GNU utility : gnu-sed"
+			brew install gnu-sed --with-default-names
 		elif [[ $WHICH_SYSTEM == $LINUX ]]; then
 
 			# Set locale to ko_KR.UTF-8
