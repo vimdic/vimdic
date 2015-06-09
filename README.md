@@ -7,6 +7,8 @@ Using shortcut 'tt' which means 'translate that' to translate the word on the cu
 
 
 ####HISTORY
+- 150610	
+	Added feature of saving searched history	
 - 150511	
 	Fully working on the Mac OS X	
 - 150428	

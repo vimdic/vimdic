@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DUMP_DIR=~/.dump_vimdic
+HISTORY_DIR=~/.history_vimdic
 COLOR_SCH=morning
 TARGET=$@
 
@@ -11,6 +12,8 @@ if [ "$1" == "-w" ]; then
 else
 	export LANG=ko_KR.UTF-8
 	clear
+	# Search history
+	echo $TARGET >> $HISTORY_DIR
 
 	# Meaning
 	printf "\n[ $TARGET ]\n\n*** 주요뜻 ***\n"
