@@ -4,11 +4,18 @@ DUMP_DIR=~/.dump_vimdic
 HISTORY_DIR=~/.history_vimdic
 COLOR_SCH=morning
 TARGET=$@
+MAC=Darwin
+LINUX=Linux
+WHICH_SYSTEM=$(uname -s)
 
-if [ "$1" == "-w" ]; then
-	echo "Open web page with vim. Just using tt."
-	w3m -dump -no-cookie "$2" > $DUMP_DIR
-	vim -c "colorscheme $COLOR_SCH" $DUMP_DIR
+if [[ "$1" =~ (http|www)(://|s://)?.+ ]]; then
+	if [[ $WHICH_SYSTEM == $LINUX ]]; then
+		echo "Open web page with vim. Just using tt."
+		w3m -dump -no-cookie "$2" > $DUMP_DIR
+		vim -c "colorscheme $COLOR_SCH" $DUMP_DIR
+	elif [[ $WHICH_SYSTEM == $MAC ]]; then
+		echo "Does not yet support feature of opening webpage"
+	fi
 else
 	export LANG=ko_KR.UTF-8
 	clear
