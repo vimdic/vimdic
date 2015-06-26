@@ -11,7 +11,7 @@ WHICH_SYSTEM=$(uname -s)
 if [[ "$1" =~ (http|www)(://|s://)?.+ ]]; then
 	if [[ $WHICH_SYSTEM == $LINUX ]]; then
 		echo "Open web page with vim. Just using tt."
-		w3m -dump -no-cookie "$2" > $DUMP_DIR
+		w3m -dump -no-cookie "$1" > $DUMP_DIR
 		vim -c "colorscheme $COLOR_SCH" $DUMP_DIR
 	elif [[ $WHICH_SYSTEM == $MAC ]]; then
 		echo "Does not yet support feature of opening webpage"
