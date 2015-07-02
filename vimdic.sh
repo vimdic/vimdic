@@ -7,6 +7,8 @@ TARGET=$@
 MAC=Darwin
 LINUX=Linux
 WHICH_SYSTEM=$(uname -s)
+CLR_YELL=`echo -e '\033[33m'`
+CLR_ORIG=`echo -e '\033[0m'`
 
 if [[ "$1" =~ (http|www)(://|s://)?.+ ]]; then
 	if [[ $WHICH_SYSTEM == $LINUX ]]; then
@@ -23,7 +25,7 @@ else
 	echo $TARGET >> $HISTORY_DIR
 
 	# Meaning
-	printf "\n[ $TARGET ]\n\n*** 주요뜻 ***\n"
+	printf "\n[ $CLR_YELL$TARGET$CLR_ORIG ]\n\n*** 주요뜻 ***\n"
 	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET" |\
 		sed -n -e "/eng_sch/,/<\/section>/p" |\
 		grep "link_txt\|txt_means_KUEK\|trans" | sed -e 's/\t//g' |\
@@ -48,6 +50,7 @@ else
 			grep "<daum:word" | sed -e 's/\t//g' |\
 			sed -e 's/^[^>]*</</g' |\
 			sed -e 's/<[^>]*>//g' |\
+			sed -e "s/$TARGET/$CLR_YELL$TARGET$CLR_ORIG/"
 			more
 	fi
 
