@@ -7,6 +7,8 @@ Using shortcut 'tt' which means 'translate that' to translate the word on the cu
 
 
 ####HISTORY
+- 150725	
+	Changing command name to vimdic from vimdic.sh		
 - 150702	
 	Coloring the target from example sentence	
 - 150619	

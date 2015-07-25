@@ -3,15 +3,17 @@
 SET_DIR=/usr/local/bin
 IS_LOCALE_SET=$(locale -a | grep -c ko_KR.utf8)
 VD=vimdic.sh
+VIMDIC=vimdic
 DUMP_DIR=~/.dump_vimdic
 MAC=Darwin
 LINUX=Linux
 WHICH_SYSTEM=$(uname -s)
+PWD=$(pwd)
 
 chmod 775 $VD
 if [ "$1" == "-rm" ]; then
-	if [ -f $SET_DIR/$VD ]; then
-		sudo rm $SET_DIR/$VD
+	if [ -f $SET_DIR/$VIMDIC ]; then
+		sudo rm $SET_DIR/$VIMDIC
 		if [[ $WHICH_SYSTEM == $MAC ]]; then
 			sed -i '' "/^nmap tt/d" ~/.vimrc
 			sed -i '' "/^xmap tt/d" ~/.vimrc
@@ -25,7 +27,7 @@ if [ "$1" == "-rm" ]; then
 		echo "Removing vimdic is already done.."
 	fi
 else
-	if [ -f $SET_DIR/$VD ]; then
+	if [ -f $SET_DIR/$VIMDIC ]; then
 		echo "Vimdic already set"
 	else
 		echo "Setting vimdic.."
@@ -56,8 +58,7 @@ else
 			sudo apt-get install w3m
 		fi
 
-		echo "cp $VD to $SET_DIR"
-		sudo cp $VD $SET_DIR
+		sudo ln -sv $PWD/$VD $SET_DIR/$VIMDIC
 		echo "Added mapping key 'tt' into ~/.vimrc"
 		echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
 		echo "xmap tt y<ESC>:!vimdic.sh<Space><C-R>\"<CR>">> ~/.vimrc
