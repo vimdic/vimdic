@@ -60,8 +60,8 @@ else
 
 		sudo ln -sv $PWD/$VD $SET_DIR/$VIMDIC
 		echo "Added mapping key 'tt' into ~/.vimrc"
-		echo "nmap tt :!vimdic.sh<Space><cword><CR>">> ~/.vimrc
-		echo "xmap tt y<ESC>:!vimdic.sh<Space><C-R>\"<CR>">> ~/.vimrc
+		echo "nmap tt :!vimdic<Space><cword><CR>">> ~/.vimrc
+		echo "xmap tt y<ESC>:!vimdic<Space><C-R>\"<CR>">> ~/.vimrc
 		source ~/.bashrc
 		echo "Vimdic setup is done."
 	fi
