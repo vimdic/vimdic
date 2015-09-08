@@ -14,7 +14,7 @@ chmod 775 $VD
 if [ "$1" == "-rm" ]; then
 	if [ -f $SET_DIR/$VIMDIC ]; then
 		sudo rm $SET_DIR/$VIMDIC
-		sed -i "/^ For vimdic/d" ~/.vimrc
+		sed -i "/For vimdic/d" ~/.vimrc
 		sed -i "/^nmap tt/d" ~/.vimrc
 		sed -i "/^xmap tt/d" ~/.vimrc
 		rm $DUMP_DIR
@@ -30,8 +30,12 @@ else
 
 		if [[ $WHICH_SYSTEM == $MAC ]]; then
 			echo "On the Mac OS X"
-			echo "Installing Homebrew which is packages manager for OSX like 'apt-get' for debian linux"
-			ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+			if which brew >/dev/null; then
+				echo "Homebrew is already set."
+			else
+				echo "Installing Homebrew which is packages manager for OSX like 'apt-get' for debian linux"
+				ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+			fi
 			echo "Installing GNU utility : gnu-sed"
 			brew install gnu-sed --with-default-names
 		elif [[ $WHICH_SYSTEM == $LINUX ]]; then
