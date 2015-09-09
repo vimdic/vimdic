@@ -14,13 +14,9 @@ chmod 775 $VD
 if [ "$1" == "-rm" ]; then
 	if [ -f $SET_DIR/$VIMDIC ]; then
 		sudo rm $SET_DIR/$VIMDIC
-		if [[ $WHICH_SYSTEM == $MAC ]]; then
-			sed -i '' "/^nmap tt/d" ~/.vimrc
-			sed -i '' "/^xmap tt/d" ~/.vimrc
-		elif [[ $WHICH_SYSTEM == $LINUX ]]; then
-			sed -i "/^nmap tt/d" ~/.vimrc
-			sed -i "/^xmap tt/d" ~/.vimrc
-		fi
+		sed -i "/For vimdic/d" ~/.vimrc
+		sed -i "/^nmap tt/d" ~/.vimrc
+		sed -i "/^xmap tt/d" ~/.vimrc
 		rm $DUMP_DIR
 		echo "Removing vimdic is done.."
 	else
@@ -34,8 +30,12 @@ else
 
 		if [[ $WHICH_SYSTEM == $MAC ]]; then
 			echo "On the Mac OS X"
-			echo "Installing Homebrew which is packages manager for OSX like 'apt-get' for debian linux"
-			ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+			if which brew >/dev/null; then
+				echo "Homebrew is already set."
+			else
+				echo "Installing Homebrew which is packages manager for OSX like 'apt-get' for debian linux"
+				ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+			fi
 			echo "Installing GNU utility : gnu-sed"
 			brew install gnu-sed --with-default-names
 		elif [[ $WHICH_SYSTEM == $LINUX ]]; then
@@ -60,6 +60,7 @@ else
 
 		sudo ln -sv $PWD/$VD $SET_DIR/$VIMDIC
 		echo "Added mapping key 'tt' into ~/.vimrc"
+		echo "\" For vimdic">> ~/.vimrc
 		echo "nmap tt :!vimdic<Space><cword><CR>">> ~/.vimrc
 		echo "xmap tt y<ESC>:!vimdic<Space><C-R>\"<CR>">> ~/.vimrc
 		source ~/.bashrc
