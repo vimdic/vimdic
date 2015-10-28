@@ -1,4 +1,6 @@
 #!/bin/bash
+# func1 : Printing things from between > with <
+# func2 : Trimming line which included parameter
 
 DUMP_DIR=~/.dump_vimdic
 HISTORY_DIR=~/.history_vimdic
@@ -23,16 +25,33 @@ else
 	clear
 	# Search history
 	echo $TARGET >> $HISTORY_DIR
-
 	# Meaning
-	printf "\n[ $CLR_YELL$TARGET$CLR_ORIG ]\n\n*** 주요뜻 ***\n"
+	printf "\n[ $CLR_YELL$TARGET$CLR_ORIG ]\n\n**** 주요뜻 ****\n"
 	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET" |\
-		sed -n -e "/eng_sch/,/<\/section>/p" |\
-		grep "link_txt\|txt_means_KUEK\|trans" | sed -e 's/\t//g' |\
-		# Wrap [] to target word from string like
-		# "???&q=love" class="link_txt" >love</a>"
+		# Trimming the useful section
+		sed -n -e "/영어 사전/,/<\/section>/p" |\
+
+		# Trimming line which including below parameter
+		# link_txt: 추가의미
+		# link_word:동음이의어
+		# word id: all of meaning
+		# </ul>:replace to newline
+		grep "link_txt\|link_word\|word id\|<\/ul>\|동음이의어<\/strong>\|result_fst" | sed -e 's/\t//g' |\
+
+		# Wraping with [] to the word in the (> ~ <) from the text including "link_txt"
 		sed -e 's/"link_txt"[^>]*>/"link_txt">[ /g' |\
+		sed -e 's/"link_word"[^>]*>/"link_word">[ /g' |\
 		sed -e 's/<\/a>/ ]<\/a>/g' |\
+
+		# Things has to replace
+		# 1. Adding space for fix problems from gap at the end of rounding number
+		sed -e 's/<\/span><daum:word/ <\/span><daum:word/g' |\
+		# 2. 동음이의어
+		sed -e 's/동음이의어/**** 동음이의어 ****/g' |\
+		# 3. 추가 의미
+		sed -e 's/result_fst/>**** 추가 의미 ****</g' |\
+
+		# Removing text inside of between '<' and '>'
 		sed -e 's/<[^>]*>//g'
 
 	echo " 		      +-----------------------------------------+"
