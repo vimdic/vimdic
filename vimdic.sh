@@ -36,7 +36,7 @@ else
 		# link_word:동음이의어
 		# word id: all of meaning
 		# </ul>:replace to newline
-		grep "link_txt\|link_word\|word id\|<\/ul>\|동음이의어<\/strong>\|result_fst" | sed -e 's/\t//g' |\
+		grep "link_txt\|link_word\|num_g1\|word id\|<\/ul>\|동음이의어<\/strong>\|result_fst" | sed -e 's/\t//g' |\
 
 		# Wraping with [] to the word in the (> ~ <) from the text including "link_txt"
 		sed -e 's/"link_txt"[^>]*>/"link_txt">[ /g' |\
