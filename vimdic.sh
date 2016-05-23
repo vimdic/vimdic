@@ -29,27 +29,17 @@ else
 	printf "\n[ $CLR_YELL$TARGET$CLR_ORIG ]\n\n**** 주요뜻 ****\n"
 	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET" |\
 		# Trimming the useful section
-		sed -n -e "/영어 사전/,/<\/section>/p" |\
+		sed -n -e "/영어사전/,/tit_word/p" |\
 
 		# Trimming line which including below parameter
-		# link_txt: 추가의미
-		# link_word:동음이의어
-		# word id: all of meaning
-		# </ul>:replace to newline
-		grep "link_txt\|link_word\|num_g1\|word id\|<\/ul>\|동음이의어<\/strong>\|result_fst" | sed -e 's/\t//g' |\
+		# txt_searchword : searched word
+		# word id : all of meaning
+		# </ul> : replace to newline
+		grep "txt_searchword\|word id\|<\/ul>" | sed -e 's/\t//g' |\
 
 		# Wraping with [] to the word in the (> ~ <) from the text including "link_txt"
-		sed -e 's/"link_txt"[^>]*>/"link_txt">[ /g' |\
-		sed -e 's/"link_word"[^>]*>/"link_word">[ /g' |\
+		sed -e 's/"txt_searchword"[^>]*>/>[ /g' |\
 		sed -e 's/<\/a>/ ]<\/a>/g' |\
-
-		# Things has to replace
-		# 1. Adding space for fix problems from gap at the end of rounding number
-		sed -e 's/<\/span><daum:word/ <\/span><daum:word/g' |\
-		# 2. 동음이의어
-		sed -e 's/동음이의어/**** 동음이의어 ****/g' |\
-		# 3. 추가 의미
-		sed -e 's/result_fst/>**** 추가 의미 ****</g' |\
 
 		# Removing text inside of between '<' and '>'
 		sed -e 's/<[^>]*>//g'
@@ -58,6 +48,7 @@ else
 	echo "		      |	종료	 	: Any Key		|"
 	echo "		      |	예문 보기	: Space Bar 또는 Enter	|"
 	echo " 		      +-----------------------------------------+"
+
 	read -n1 x
 
 	if [ "$x" ]; then
