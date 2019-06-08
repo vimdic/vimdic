@@ -11,6 +11,8 @@ LINUX=Linux
 WHICH_SYSTEM=$(uname -s)
 CLR_YELL=`echo -e '\033[33m'`
 CLR_ORIG=`echo -e '\033[0m'`
+SEARCH_URL="http://small.dic.daum.net/search.do?q="
+EX_URL="https://small.dic.daum.net/word/view.do?wordid="
 
 if [[ "$1" =~ (http|www)(://|s://)?.+ ]]; then
 	if [[ $WHICH_SYSTEM == $LINUX ]]; then
@@ -25,9 +27,19 @@ else
 	clear
 	# Search history
 	echo $TARGET >> $HISTORY_DIR
-	# Meaning
+
+	# Get word id
+	WORD_ID=$(wget -q -O - "$SEARCH_URL$TARGET" |\
+		grep "tit_cleansch" |\
+		# striping unnecessary tags
+		sed -e 's/<strong class="tit_cleansch @//g' |\
+		sed -e 's/\">//g' |\
+		# remove white space from beginning
+		sed -e 's/^\s*\s//g')
+
+	# Get meaning
 	printf "\n[ $CLR_YELL$TARGET$CLR_ORIG ]\n\n**** 주요뜻 ****\n"
-	wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET" |\
+	wget -q -O - "$SEARCH_URL$TARGET" |\
 		# Trimming the useful section
 		sed -n -e "/영어사전/,/tit_word/p" |\
 
@@ -56,7 +68,7 @@ else
 	else
 		# Example
 		printf "\n*** 예문 ***\n"
-		wget -q -O - "http://small.dic.daum.net/search.do?q=$TARGET&t=example&dic=eng" |\
+		wget -q -O - "$EX_URL$WORD_ID" |\
 			grep "<daum:word" | sed -e 's/\t//g' |\
 			sed -e 's/^[^>]*</</g' |\
 			sed -e 's/<[^>]*>//g' |\
